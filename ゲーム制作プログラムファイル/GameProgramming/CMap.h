@@ -9,6 +9,8 @@ public:
 	//CMap(ƒ‚ƒfƒ‹,ˆÊ’u,‰ñ“],Šgk)
 	CMap(CModel*model, CVector position, CVector rotation, CVector scale);
 
+	//•`‰æˆ—
+	void Render(); 
 };
 
 #endif

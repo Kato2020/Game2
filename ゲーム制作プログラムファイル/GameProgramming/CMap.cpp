@@ -11,4 +11,11 @@ CMap::CMap(CModel*model, CVector position, CVector rotation, CVector scale){
 	mPriority = 1;
 	CTaskManager::Get()->Remove(this);//íœ‚µ‚Ä
 	CTaskManager::Get()->Add(this);//’Ç‰Á‚·‚é
+
+	mTag = EMAP; //ƒ^ƒO‚Ìİ’è
+}
+
+void CMap::Render(){
+	//e‚Ì•`‰æˆ—
+	CCharacter::Render();
 }
