@@ -33,6 +33,7 @@ public:
 		EBULLETENEMY,  //敵弾
 		EMAP,          //コースの壁
 		EBLOCK,        //障害物
+		EGOAL,         //ゴール
 	};
 	ETag mTag;
 };

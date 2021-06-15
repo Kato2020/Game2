@@ -1,7 +1,7 @@
-#include "CMap.h"
+#include "CGoal.h"
 #include "CTaskManager.h"
 
-CMap::CMap(CModel*model, CVector position, CVector rotation, CVector scale){
+CGoal::CGoal(CModel*model, CVector position, CVector rotation, CVector scale){
 	//モデル、位置、回転、拡縮を設定する
 	mpModel = model;      //モデルの設定
 	mPosition = position; //位置の設定
@@ -12,12 +12,7 @@ CMap::CMap(CModel*model, CVector position, CVector rotation, CVector scale){
 	CTaskManager::Get()->Remove(this);//削除して
 	CTaskManager::Get()->Add(this);//追加する
 
-	mTag = EMAP; //タグの設定
+	mTag = EGOAL; //タグの設定
 
 	CTransform::Update(); //行列を呼ぶ
-}
-
-void CMap::Render(){
-	//親の描画処理
-	CCharacter::Render();
 }

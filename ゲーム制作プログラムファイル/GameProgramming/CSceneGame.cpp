@@ -10,7 +10,10 @@
 #include "CBillBoard.h"
 #include "CCamera.h"
 #include "CColliderMesh.h"
+
 #include "CMap.h"
+#include "CBlock.h"
+#include "CGoal.h"
 
 //四角形モデル
 CModel mModelcubeL;
@@ -37,11 +40,14 @@ void CSceneGame::Init() {
 	mModelcubeR.Load("cube.obj", "cube.mtl");
 
 	//左壁のインスタンス作成
-	new CMap(&mModelcubeL, CVector(50.0f, 30.0f, 0.0f)
-		*mBackGroundMatrix, CVector(), CVector(1.0f, 1.0f, 1.0f));
+	new CMap(&mModelcubeL, CVector(5.0f, 0.0f, -100.0f)
+		*mBackGroundMatrix, CVector(), CVector(1.0f, 5.0f, 100.0f));
 	//右壁のインスタンス作成
-	new CMap(&mModelcubeR, CVector(-50.0f, 30.0f, 0.0f)
-		*mBackGroundMatrix, CVector(), CVector(1.0f, 1.0f, 1.0f));
+	new CMap(&mModelcubeR, CVector(-5.0f, 0.0f, -100.0f)
+		*mBackGroundMatrix, CVector(), CVector(1.0f, 5.0f, 100.0f));
+
+	//ゴール地点にゴールのインスタンスを作成
+	//new CGoal()
 
 	//三角コライダの確認
 	mColliderTriangle.Set(NULL, NULL

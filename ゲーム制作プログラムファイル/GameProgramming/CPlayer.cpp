@@ -7,6 +7,8 @@
 #include "CCollisionManager.h"
 #include "CUtil.h"
 
+#define GRAVITY 1   //重力
+
 CPlayer::CPlayer()
 :mLine(this, &mMatrix, CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 5.0f))
 , mLine2(this, &mMatrix, CVector(0.0f, 5.0f, 0.0f), CVector(0.0f, -3.0f, 0.0f))
@@ -45,6 +47,12 @@ void CPlayer::Update(){
 		//X軸の回転値を加算
 		mRotation.mX += 1;
 	}
+
+	//重力を設定
+	mPosition.mY -= GRAVITY;
+	//ジャンプの力を加算
+
+
 	//CCharacterの更新
 	CTransform::Update();
 

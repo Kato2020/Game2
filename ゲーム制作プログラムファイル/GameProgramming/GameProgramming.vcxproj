@@ -60,7 +60,7 @@
     <Link>
       <SubSystem>NotSet</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;glfw3dll.lib;glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;glfw3dll.lib;glut32.lib;soil.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,6 +96,7 @@
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CEnemy.cpp" />
     <ClCompile Include="CEnemy2.cpp" />
+    <ClCompile Include="CGoal.cpp" />
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CMaterial.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CEnemy.h" />
     <ClInclude Include="CEnemy2.h" />
+    <ClInclude Include="CGoal.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CMaterial.h" />
@@ -147,6 +149,7 @@
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="CUtil.h" />
     <ClInclude Include="CVector.h" />
+    <ClInclude Include="include\SOIL.h" />
     <ClInclude Include="Update.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
