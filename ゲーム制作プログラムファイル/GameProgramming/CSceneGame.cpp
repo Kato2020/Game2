@@ -12,10 +12,10 @@
 #include "CColliderMesh.h"
 
 #include "CMap.h"
-#include "CBlock.h"
+#include "CObstacleManager.h"
 #include "CGoal.h"
 
-//四角形モデル
+//左右の壁のモデル
 CModel mModelcubeL;
 CModel mModelcubeR;
 //三角コライダの作成
@@ -23,6 +23,8 @@ CColliderTriangle mColliderTriangle;
 CColliderTriangle mColliderTriangle2;
 //モデルからコライダを生成
 CColliderMesh mColliderMesh;
+//障害物を配置するクラスのインスタンス
+CObstacleManager mObstacle;
 
 void CSceneGame::Init() {
 	mEye = CVector(1.0f, 2.0f, 3.0f);
@@ -46,10 +48,7 @@ void CSceneGame::Init() {
 	new CMap(&mModelcubeR, CVector(-5.0f, 0.0f, -100.0f)
 		*mBackGroundMatrix, CVector(), CVector(1.0f, 5.0f, 100.0f));
 
-	//ゴール地点にゴールのインスタンスを作成
-	//new CGoal()
-
-	//三角コライダの確認
+	//三角コライダを床として配置
 	mColliderTriangle.Set(NULL, NULL
 		, CVector(-5.0f, 0.0f, -100.0f)
 		, CVector(-5.0f, 0.0f, 0.0f)
@@ -58,6 +57,12 @@ void CSceneGame::Init() {
 		, CVector(5.0f, 0.0f, -100.0f)
 		, CVector(-5.0f, 0.0f, -100.0f)
 		, CVector(5.0f, 0.0f, 0.0f));
+
+	//ゴール地点にゴールのインスタンスを作成
+	//new CGoal()
+
+	//障害物を配置
+	mObstacle.Generate(100.0f, 5.0f);
 
 
 }

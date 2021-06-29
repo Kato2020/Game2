@@ -17,6 +17,24 @@ CMap::CMap(CModel*model, CVector position, CVector rotation, CVector scale){
 	CTransform::Update(); //行列を呼ぶ
 }
 
+void CMap::Collision(CCollider*m, CCollider*o){
+	//自身のコライダタイプの判定
+	switch (m->mType){
+	case CCollider::ELINE://線分コライダ
+		//相手のコライダが三角コライダの時
+		if (o->mType == CCollider::ETRIANGLE){
+			CVector adjust;//調整用ベクトル
+			//三角形と線分の衝突判定
+			CCollider::CollisionTriangleLine(o, m, &adjust);
+			//位置の更新(mPosition+adjust)
+			mPosition = mPosition - adjust*-1;
+			//行列の更新
+			CTransform::Update();
+		}
+		break;
+	}
+}
+
 void CMap::Render(){
 	//親の描画処理
 	CCharacter::Render();

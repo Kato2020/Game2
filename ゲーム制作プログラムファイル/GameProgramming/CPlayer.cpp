@@ -7,13 +7,15 @@
 #include "CCollisionManager.h"
 #include "CUtil.h"
 
-#define GRAVITY 1   //重力
+#define GRAVITY 0.1  //重力
+#define JUMPPOWER 0.5  //ジャンプ力
 
 CPlayer::CPlayer()
 :mLine(this, &mMatrix, CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 5.0f))
 , mLine2(this, &mMatrix, CVector(0.0f, 5.0f, 0.0f), CVector(0.0f, -3.0f, 0.0f))
 , mLine3(this, &mMatrix, CVector(5.0f, 0.0f, 0.0f), CVector(-5.0f, 0.0f, 0.0f))
 ,mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.5f)
+, mJpspeed(0), mJump(false)
 {
 	//テクスチャファイルの読み込み(1行64列)
 	mText.LoadTexture("FontWhite.tga", 1, 64);
@@ -47,11 +49,20 @@ void CPlayer::Update(){
 		//X軸の回転値を加算
 		mRotation.mX += 1;
 	}
+	//キー入力でジャンプ
+	if (CKey::Push(' ') && mJump==false){
+		mJpspeed += JUMPPOWER;
+		mJump = true;
+	}
+	//ジャンプの力を加算
+	if (mJump == true){
+		mPosition.mY += mJpspeed;
+		mPosition.mY += GRAVITY;
+		mJpspeed -= GRAVITY;
+	}
 
 	//重力を設定
 	mPosition.mY -= GRAVITY;
-	//ジャンプの力を加算
-
 
 	//CCharacterの更新
 	CTransform::Update();
@@ -71,6 +82,9 @@ void CPlayer::Collision(CCollider*m, CCollider*o){
 			mPosition = mPosition - adjust*-1;
 			//行列の更新
 			CTransform::Update();
+			//着地処理
+			mJump = false;
+			mJpspeed = 0;
 		}
 		break;
 	}

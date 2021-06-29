@@ -9,6 +9,12 @@
 キャラクタクラスを継承
 */
 class CPlayer :public CCharacter{
+private:
+	//ジャンプスピード
+	float mJpspeed;
+	//ジャンプしているか判定
+	bool mJump;
+
 public:
 	//更新処理
 	void Update();
