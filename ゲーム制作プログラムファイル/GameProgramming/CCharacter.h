@@ -32,7 +32,7 @@ public:
 		EBULLETPLAYER, //プレイヤー弾
 		EBULLETENEMY,  //敵弾
 		EMAP,          //コースの壁
-		EBLOCK,        //障害物
+		EOBSTACLE,     //障害物
 		EGOAL,         //ゴール
 	};
 	ETag mTag;

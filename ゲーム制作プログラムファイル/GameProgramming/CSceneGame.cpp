@@ -14,39 +14,33 @@
 #include "CMap.h"
 #include "CObstacleManager.h"
 #include "CGoal.h"
+#include "CObstacle.h"
 
 //左右の壁のモデル
 CModel mModelcubeL;
 CModel mModelcubeR;
+//ゴールのモデル
+CModel mModelGoal;
+
 //三角コライダの作成
 CColliderTriangle mColliderTriangle;
 CColliderTriangle mColliderTriangle2;
-//モデルからコライダを生成
-CColliderMesh mColliderMesh;
+
 //障害物を配置するクラスのインスタンス
 CObstacleManager mObstacle;
 
 void CSceneGame::Init() {
+	//シーンの設定
+	mScene = EGAME;
+
 	mEye = CVector(1.0f, 2.0f, 3.0f);
 
 	//モデルファイルの入力
-	mModel.Load("cube.obj", "cube.mtl");
-
+	mModel.Load("sphere.obj", "sphere.mtl");
 	mPlayer.mpModel = &mModel;
 	mPlayer.mScale = CVector(0.1f, 0.1f, 0.1f);
 	mPlayer.mPosition = CVector(0.0f, 0.0f, -3.0f)*mBackGroundMatrix;
 	mPlayer.mRotation = CVector(0.0f, 180.0f, 0.0f);
-
-	//四角形モデルの読み込み
-	mModelcubeL.Load("cube.obj", "cube.mtl");
-	mModelcubeR.Load("cube.obj", "cube.mtl");
-
-	//左壁のインスタンス作成
-	new CMap(&mModelcubeL, CVector(5.0f, 0.0f, -100.0f)
-		*mBackGroundMatrix, CVector(), CVector(1.0f, 5.0f, 100.0f));
-	//右壁のインスタンス作成
-	new CMap(&mModelcubeR, CVector(-5.0f, 0.0f, -100.0f)
-		*mBackGroundMatrix, CVector(), CVector(1.0f, 5.0f, 100.0f));
 
 	//三角コライダを床として配置
 	mColliderTriangle.Set(NULL, NULL
@@ -58,11 +52,29 @@ void CSceneGame::Init() {
 		, CVector(-5.0f, 0.0f, -100.0f)
 		, CVector(5.0f, 0.0f, 0.0f));
 
+	//壁のモデルを読み込む
+	mModelcubeL.Load("cube.obj", "cube.mtl");
+	mModelcubeR.Load("cube.obj", "cube.mtl");
+	//左壁のインスタンス作成
+	new CMap(&mModelcubeL, CVector(5.0f, 0.0f, -100.0f)
+		*mBackGroundMatrix, CVector(), CVector(1.0f, 5.0f, 100.0f));
+	//右壁のインスタンス作成
+	new CMap(&mModelcubeR, CVector(-5.0f, 0.0f, -100.0f)
+		*mBackGroundMatrix, CVector(), CVector(1.0f, 5.0f, 100.0f));
+
+	//ゴールのモデルを読み込む
+	mModelGoal.Load("cube.obj", "cube.mtl");
 	//ゴール地点にゴールのインスタンスを作成
-	//new CGoal()
+	//new CGoal(&mModelGoal, CVector(0.0f, 0.0f, -20.0f), CVector(),
+		//CVector(4.0f, 5.0f, 1.0f));
 
 	//障害物を配置
-	mObstacle.Generate(100.0f, 5.0f);
+	//Generate(コースの長さ,コースの幅,障害物の間隔)
+	//mObstacle.Generate(100.0f, 10.0f, 5.0f);
+
+	//CObstacleクラスの障害物をテスト配置
+	new CObstacle(CVector(0.0f, 0.0f, -20.0f), CVector(),
+	CVector(4.0f, 5.0f, 1.0f));
 
 
 }
@@ -140,3 +152,7 @@ void CSceneGame::Update() {
 	CCollisionManager::Get()->Render();
 }
 
+//次のシーン取得
+CScene::EScene CSceneGame::GetNextScene(){
+	return mScene;
+}

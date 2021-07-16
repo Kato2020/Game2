@@ -1,40 +1,80 @@
 #include "CObstacleManager.h"
+//
 #include <stdlib.h>
+//
+#include "CObstacle.h"
+#include "CObstacleBig.h"
+#include "CObstacleMoving.h"
+
+#define CATEGORY 3 //障害物の種類
+
 
 //デフォルトコンストラクタ
 CObstacleManager::CObstacleManager()
-:randomSeed(0), mObstacleType(0)
+:mTime(0), mDivisionCenter(0)
 {}
 
 //一度だけ実行する
 void CObstacleManager::Init(){
-	srand(randomSeed);
+	//時間をシード値として疑似乱数の引数に設定
+	srand((unsigned)time(&mTime));
 }
 
-//通常の障害物をコース上に生成する
-void Generate(float range,float spacing){
-	//間隔を開けてゴールまで障害物を生成
+//チュートリアル用コース
+void CObstacleManager::Generate(float range,float width,float spacing){
+	//コースの横幅を3分割した中心
+	mDivisionCenter = width / 3 / 2;
+	//間隔を開けてゴールまで
 	for (int i = 0; i < range / spacing; i++){
-		//普通サイズの障害物を生成する
-		new CObstacle(CVector(0.0f, 0.0f, spacing*1), CVector(), CVector(1.0f, 1.0f, 1.0f));
+		//コースの左端から障害物の横の位置をランダムに決める
+		float x = -width / 2 + mDivisionCenter + rand() % 3 * mDivisionCenter * 2;
+
+		switch ((i+CATEGORY) % CATEGORY)
+		{
+		case 0:
+			//普通サイズの障害物を生成する
+			new CObstacle(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+			break;
+		case 1:
+			//大きいサイズの障害物を生成
+			new CObstacleBig(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+			break;
+		case 2:
+			//左右に動く障害物を生成
+			new CObstacleMoving(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+			break;
+		default:
+			break;
+		}
 	}
 }
 
 //3種類の障害物をコース上にランダムに生成する
-void GenerateRandom(float renge, float spacing){
-	//間隔を開けてゴールまで障害物を生成
+void CObstacleManager::GenerateRandom(float renge, float width, float spacing){
+	//コースの横幅を3分割した中心
+	mDivisionCenter = width / 3 / 2;
+	//間隔を開けてゴールまで
 	for (int i = 0; i < renge / spacing; i++){
-		//ランダムな値を生成
-		int mObstacleType = rand();
-		mObstacleType %= 3;
+		//コースの左端から障害物の横の位置をランダムに決める
+		float x = -width / 2 + mDivisionCenter + rand() % 3 * mDivisionCenter * 2;
+		//疑似乱数を生成
+		unsigned int mObstacleRandom = rand();
+		printf("mObstacleRandom:%d\n,mObstacleRandom");
+		int mObstacleType = mObstacleRandom % CATEGORY;
+		printf("mObstacleType:%d\n,mObstacleType");
 		switch (mObstacleType){
 			case 0:
 				//普通サイズの障害物を生成する
-				new CObstacle(CVector(0.0f, 0.0f, spacing*1), CVector(), CVector(1.0f, 1.0f, 1.0f));
+				new CObstacle(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+				break;
 			case 1:
 				//大きいサイズの障害物を生成
+				new CObstacleBig(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+				break;
 			case 2:
 				//左右に動く障害物を生成
+				new CObstacleMoving(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+				break;
 		default:
 			break;
 		}

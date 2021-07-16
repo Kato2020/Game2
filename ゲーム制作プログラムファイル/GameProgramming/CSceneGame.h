@@ -15,6 +15,10 @@ public:
 	void Init();
 	//更新処理のオーバーライド
 	void Update();
+
+	//次のシーン取得
+	EScene GetNextScene();
+
 	//モデルクラスのインスタンス作成
 	CModel mModel;
 

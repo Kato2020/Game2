@@ -2,7 +2,6 @@
 #include "CTaskManager.h"
 #include "CModel.h"
 
-CModel mModelcube;
 
 void CObstacle::Init(){
 	//四角形モデルの読み込み
@@ -11,7 +10,7 @@ void CObstacle::Init(){
 
 CObstacle::CObstacle(CVector position, CVector rotation, CVector scale){
 	//モデル、位置、回転、拡縮を設定する
-	mpModel = &mModelcube;        //モデルの設定
+	mpModel = &mModelcube;  //モデルの設定
 	mPosition = position;   //位置の設定
 	mRotation = rotation;   //回転の設定
 	mScale = scale;         //縮尺の設定
@@ -21,8 +20,8 @@ CObstacle::CObstacle(CVector position, CVector rotation, CVector scale){
 	CTaskManager::Get()->Add(this);
 
 	CTransform::Update(); //行列を呼ぶ
-
 }
+
 void CObstacle::Render(){
 	//親の描画処理
 	CCharacter::Render();

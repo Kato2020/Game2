@@ -1,5 +1,10 @@
 #include "CMap.h"
 #include "CTaskManager.h"
+#include "CCollisionManager.h"
+#include "CColliderMesh.h"
+
+//モデルからコライダを生成
+CColliderMesh mColliderMesh2;
 
 CMap::CMap(CModel*model, CVector position, CVector rotation, CVector scale){
 	//モデル、位置、回転、拡縮を設定する
@@ -17,21 +22,27 @@ CMap::CMap(CModel*model, CVector position, CVector rotation, CVector scale){
 	CTransform::Update(); //行列を呼ぶ
 }
 
+//一度だけ実行
+void CMap::Init(){
+	mColliderMesh2.Set(this, &mMatrix, mpModel);//モデルから三角コライダを生成
+}
+
 void CMap::Collision(CCollider*m, CCollider*o){
-	//自身のコライダタイプの判定
-	switch (m->mType){
-	case CCollider::ELINE://線分コライダ
-		//相手のコライダが三角コライダの時
-		if (o->mType == CCollider::ETRIANGLE){
-			CVector adjust;//調整用ベクトル
-			//三角形と線分の衝突判定
-			CCollider::CollisionTriangleLine(o, m, &adjust);
-			//位置の更新(mPosition+adjust)
-			mPosition = mPosition - adjust*-1;
-			//行列の更新
-			CTransform::Update();
+	//自分が三角コライダの時
+	if (m->mType == CCollider::ETRIANGLE){
+		switch (o->mType)
+		{
+		case CCollider::ETRIANGLE:
+			//相手の親がプレイヤーの時
+			if (o->mpParent->mTag == EPLAYER){
+				//衝突している時
+				if (CCollider::Collision(m, o)){
+					
+				}
+			}
+		default:
+			break;
 		}
-		break;
 	}
 }
 

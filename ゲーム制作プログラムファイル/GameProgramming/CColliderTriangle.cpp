@@ -45,7 +45,7 @@ void CColliderTriangle::Render()
 	//ライトオフ
 	glDisable(GL_LIGHTING);
 	//DIFFUSE赤色設定
-	float c[] = { 1.0f, 0.0f, 0.0f, 0.2f };
+	float c[] = { 0.0f, 0.0f, 0.0f, 0.0f };
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);
 	glColor4fv(c);
 

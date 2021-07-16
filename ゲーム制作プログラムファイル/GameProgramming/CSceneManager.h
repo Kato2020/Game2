@@ -8,6 +8,7 @@
 class CSceneManager {
 public:
 	CScene *mpScene; //シーンへのポインタ
+	CScene::EScene mScene; //シーンの識別
 	//コンストラクタ
 	CSceneManager();
 	//デストラクタ（削除されるときに実行されます）

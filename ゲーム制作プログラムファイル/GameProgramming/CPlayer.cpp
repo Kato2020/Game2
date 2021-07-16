@@ -7,7 +7,7 @@
 #include "CCollisionManager.h"
 #include "CUtil.h"
 
-#define GRAVITY 0.1  //重力
+#define GRAVITY 0.15  //重力
 #define JUMPPOWER 0.5  //ジャンプ力
 
 CPlayer::CPlayer()
@@ -57,11 +57,11 @@ void CPlayer::Update(){
 	//ジャンプの力を加算
 	if (mJump == true){
 		mPosition.mY += mJpspeed;
-		mPosition.mY += GRAVITY;
 		mJpspeed -= GRAVITY;
 	}
 
 	//重力を設定
+	if (mJump==false)
 	mPosition.mY -= GRAVITY;
 
 	//CCharacterの更新

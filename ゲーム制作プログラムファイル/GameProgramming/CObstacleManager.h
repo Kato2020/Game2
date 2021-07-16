@@ -1,7 +1,7 @@
 #ifndef COBSTACLEMANAGER_H
 #define COBSTACLEMANAGER_H
 
-#include "CObstacle.h"
+#include <time.h>
 
 class CObstacleManager{
 public:
@@ -9,17 +9,17 @@ public:
 	CObstacleManager();
 	//一度だけ実行する
 	void Init();
-	//通常の障害物をコース上に生成する
-	//Generate(マップの長さ,間隔)
-	void Generate(float range, float spacing);
+	//チュートリアル用の障害物をコースに生成する
+	//Generate(コースの長さ,コースの幅, 間隔)
+	void Generate(float range, float width, float spacing);
 	//3種類の障害物をコースにランダムに生成する
-	//GenerateRandom(マップの長さ,間隔)
-	void GenerateRandom(float range, float spacing);
+	//GenerateRandom(コースの長さ,コースの幅, 間隔)
+	void GenerateRandom(float range, float width, float spacing);
 private:
-	//シード値
-	unsigned int  randomSeed;
-	//生成する障害物の種類
-	int mObstacleType;
+	//システム時刻を保存する変数
+	time_t mTime;
+	//コースの横幅を3分割した中心
+	float mDivisionCenter;
 };
 
 #endif

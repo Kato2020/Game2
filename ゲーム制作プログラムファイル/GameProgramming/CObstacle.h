@@ -5,14 +5,14 @@
 
 class CObstacle :public CCharacter{
 public:
-
-	//コンストラクタ
+    //コンストラクタ
 	//CObstacle(位置,回転,拡縮)
 	CObstacle(CVector position, CVector rotation, CVector scale);
-
+	//一度だけ実行する
 	void Init();
 	//描画処理
 	void Render();
+	CModel mModelcube; //モデル
 };
 
 #endif
