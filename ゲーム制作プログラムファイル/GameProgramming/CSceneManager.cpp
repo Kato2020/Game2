@@ -1,6 +1,9 @@
 #include "CSceneManager.h"
 #include "CSceneGame.h"
+#include "CSceneTutorial.h"
+#include "CSceneGameSelection.h"
 #include "CSceneTitle.h"
+#include "CSceneResult.h"
 #include "CMatrix.h"
 
 //コンストラクタ
@@ -18,7 +21,7 @@ CSceneManager::~CSceneManager() {
 //初期化処理
 void CSceneManager::Init() {
 	//シーンの識別を設定する
-	mScene = CScene::EGAME;
+	mScene = CScene::ETITLE;
 	//シーンを生成し、ポインタを設定する
 	mpScene = new CSceneGame();
 	//生成したクラスのメソッドが呼ばれる
@@ -42,8 +45,20 @@ void CSceneManager::Update() {
 			mpScene = new CSceneGame();
 			mpScene->Init();
 			break;
+		case CScene::ETUTORIAL:
+			mpScene = new CSceneTutorial();
+			mpScene->Init();
+			break;
+		case CScene::EGAMESELECTION:
+			mpScene = new CSceneGameSelection();
+			mpScene->Init();
+			break;
 		case CScene::ETITLE:
 			mpScene = new CSceneTitle();
+			mpScene->Init();
+			break;
+		case CScene::ERESULT:
+			mpScene = new CSceneResult();
 			mpScene->Init();
 			break;
 		}

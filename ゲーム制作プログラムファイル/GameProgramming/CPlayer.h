@@ -14,7 +14,10 @@ private:
 	float mJpspeed;
 	//ジャンプしているか判定
 	bool mJump;
-
+	//時間
+	int mTime;
+	//一秒をカウントする
+	int mCount;
 public:
 	//更新処理
 	void Update();

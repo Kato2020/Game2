@@ -1,4 +1,4 @@
-#include "CSceneGame.h"
+#include "CSceneTutorial.h"
 #include "CVector.h"
 #include "CTriangle.h"
 #include "CKey.h"
@@ -31,9 +31,9 @@ CModel mModelFloor;
 //障害物を配置するクラスのインスタンス
 CObstacleManager mObstacle;
 
-void CSceneGame::Init() {
+void CSceneTutorial::Init() {
 	//シーンの設定
-	mScene = EGAME;
+	mScene = ETUTORIAL;
 
 	mEye = CVector(1.0f, 2.0f, 3.0f);
 
@@ -46,18 +46,18 @@ void CSceneGame::Init() {
 
 	//三角コライダを床として配置
 	/*mColliderTriangle.Set(NULL, NULL
-		, CVector(-5.0f, 0.0f, -100.0f)
-		, CVector(-5.0f, 0.0f, 0.0f)
-		, CVector(5.0f, 0.0f, 0.0f));
+	, CVector(-5.0f, 0.0f, -100.0f)
+	, CVector(-5.0f, 0.0f, 0.0f)
+	, CVector(5.0f, 0.0f, 0.0f));
 	mColliderTriangle2.Set(NULL, NULL
-		, CVector(5.0f, 0.0f, -100.0f)
-		, CVector(-5.0f, 0.0f, -100.0f)
-		, CVector(5.0f, 0.0f, 0.0f));*/
+	, CVector(5.0f, 0.0f, -100.0f)
+	, CVector(-5.0f, 0.0f, -100.0f)
+	, CVector(5.0f, 0.0f, 0.0f));*/
 
 	//床のモデルを読み込む
 	mModelFloor.Load("cube.obj", "cube.mtl");
 	//床を配置
-	new CFloor(&mModelFloor,CVector(0.0f, -5.0f, -50.0f)
+	new CFloor(&mModelFloor, CVector(0.0f, -5.0f, -50.0f)
 		*mBackGroundMatrix, CVector(), CVector(1.0f, 5.0f, 50.0f));
 
 	//壁のモデルを読み込む
@@ -78,14 +78,14 @@ void CSceneGame::Init() {
 
 	//障害物を配置
 	//Generate(コースの長さ,コースの幅,障害物の間隔)
-	//mObstacle.Generate(100.0f, 10.0f, 10.0f);
+	mObstacle.Generate(100.0f, 10.0f, 10.0f);
 	//ランダムに障害物を配置
 	//Generate(コースの長さ,コースの幅,障害物の間隔)
-	mObstacle.GenerateRandom(100.0f, 10.0f, 3.0f);
+	//mObstacle.GenerateRandom(100.0f, 10.0f, 3.0f);
 
 }
 
-void CSceneGame::Update() {
+void CSceneTutorial::Update() {
 
 	//タスクマネージャの更新
 	CTaskManager::Get()->Update();
@@ -135,11 +135,11 @@ void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、中心点、上方向
 	//視点を求める
-	    e = CVector(-2.0f, 10.0f, -30.0f)*mPlayer.mMatrix;
-		//注視点を求める
-		c = mPlayer.mPosition;
+	e = CVector(-2.0f, 10.0f, -30.0f)*mPlayer.mMatrix;
+	//注視点を求める
+	c = mPlayer.mPosition;
 	//上方向を求める
-		u = CVector(0.0f, 1.0f, 0.0f)*mPlayer.mMatrixRotate;
+	u = CVector(0.0f, 1.0f, 0.0f)*mPlayer.mMatrixRotate;
 	//カメラの設定
 	//gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
@@ -159,6 +159,6 @@ void CSceneGame::Update() {
 }
 
 //次のシーン取得
-CScene::EScene CSceneGame::GetNextScene(){
+CScene::EScene CSceneTutorial::GetNextScene(){
 	return mScene;
 }

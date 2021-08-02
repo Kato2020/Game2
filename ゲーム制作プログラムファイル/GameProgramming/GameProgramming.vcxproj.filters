@@ -23,12 +23,6 @@
     <Filter Include="Source\Chara">
       <UniqueIdentifier>{ac02d803-935c-458d-9d84-b821372730f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Chara\Model">
-      <UniqueIdentifier>{672e80fb-8840-43bf-90b8-a9cb50e27fab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Chara\Transform">
-      <UniqueIdentifier>{67bfa305-8584-4dba-b16e-753d036c77c4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -38,6 +32,9 @@
     </Filter>
     <Filter Include="Source\Collider">
       <UniqueIdentifier>{5e840038-64e2-4955-96ed-7ae621a9b3b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{4dfaec8b-b38f-4f97-a5c5-ce73cdac5bd0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -71,16 +68,7 @@
     <ClCompile Include="CCamera.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="CEffect.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
     <ClCompile Include="CKey.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneGame.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneManager.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
     <ClCompile Include="CSound.cpp">
@@ -98,27 +86,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CCharacter.cpp">
       <Filter>Source\Chara</Filter>
-    </ClCompile>
-    <ClCompile Include="CTexture.cpp">
-      <Filter>Source\Chara\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="CModel.cpp">
-      <Filter>Source\Chara\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="CMaterial.cpp">
-      <Filter>Source\Chara\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="CTransform.cpp">
-      <Filter>Source\Chara\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="CVector.cpp">
-      <Filter>Source\Chara\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="CMatrix.cpp">
-      <Filter>Source\Chara\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="CTriangle.cpp">
-      <Filter>Source\Chara\Model</Filter>
     </ClCompile>
     <ClCompile Include="CBillBoard.cpp">
       <Filter>Source\General</Filter>
@@ -144,8 +111,50 @@
     <ClCompile Include="CCollisionManager.cpp">
       <Filter>Source\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="CSceneTitle.cpp">
+    <ClCompile Include="CFloor.cpp">
+      <Filter>Source\General</Filter>
+    </ClCompile>
+    <ClCompile Include="CMaterial.cpp">
       <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CMatrix.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CModel.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CTriangle.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CVector.cpp">
+      <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect.cpp">
+      <Filter>Source\General</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneGame.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneGameSelection.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneResult.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneTitle.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneTutorial.cpp">
+      <Filter>Source\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,22 +191,7 @@
     <ClInclude Include="CCamera.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
-    <ClInclude Include="CEffect.h">
-      <Filter>Source\Game</Filter>
-    </ClInclude>
     <ClInclude Include="CKey.h">
-      <Filter>Source\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="CScene.h">
-      <Filter>Source\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneGame.h">
-      <Filter>Source\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneManager.h">
-      <Filter>Source\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="CSound.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
     <ClInclude Include="CText.h">
@@ -211,30 +205,6 @@
     </ClInclude>
     <ClInclude Include="CCharacter.h">
       <Filter>Source\Chara</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SOIL.h">
-      <Filter>Source\Chara\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="CTexture.h">
-      <Filter>Source\Chara\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="CModel.h">
-      <Filter>Source\Chara\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="CMaterial.h">
-      <Filter>Source\Chara\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="CTransform.h">
-      <Filter>Source\Chara\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="CVector.h">
-      <Filter>Source\Chara\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="CMatrix.h">
-      <Filter>Source\Chara\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="CTriangle.h">
-      <Filter>Source\Chara\Model</Filter>
     </ClInclude>
     <ClInclude Include="CBillBoard.h">
       <Filter>Source\General</Filter>
@@ -260,8 +230,59 @@
     <ClInclude Include="CCollisionManager.h">
       <Filter>Source\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="CSceneTitle.h">
+    <ClInclude Include="CFloor.h">
+      <Filter>Source\General</Filter>
+    </ClInclude>
+    <ClInclude Include="CSound.h">
       <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CMaterial.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CMatrix.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CModel.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CTriangle.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CVector.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SOIL.h">
+      <Filter>Source\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect.h">
+      <Filter>Source\General</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneGame.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneGameSelection.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneManager.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneResult.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneTitle.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneTutorial.h">
+      <Filter>Source\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

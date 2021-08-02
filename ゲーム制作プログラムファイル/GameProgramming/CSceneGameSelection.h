@@ -1,11 +1,13 @@
-#ifndef CSCENETITLE_H
-#define CSCENETITLE_H
+#ifndef CSCENEGAMESELECTION_H
+#define CSCENEGAMESELECTION_H
 
 #include "CScene.h"
 #include "CText.h"
 
-class CSceneTitle :public CScene{
+class CSceneGameSelection :public CScene{
 public:
+	//デフォルトコンストラクタ
+	CSceneGameSelection();
 	//初期化処理のオーバーライド
 	void Init();
 	//更新処理のオーバーライド
@@ -14,6 +16,8 @@ public:
 	EScene GetNextScene();
 	//テキストの変数
 	CText mText;
+	//次のゲームを指定
+	int mNextGame;
 };
 
 #endif

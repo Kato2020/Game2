@@ -34,6 +34,7 @@ public:
 		EMAP,          //コースの壁
 		EOBSTACLE,     //障害物
 		EGOAL,         //ゴール
+		EFLOOR,        //床
 	};
 	ETag mTag;
 };

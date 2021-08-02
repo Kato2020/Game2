@@ -19,12 +19,9 @@ CGoal::CGoal(CModel*model, CVector position, CVector rotation, CVector scale){
 
 	mTag = EGOAL; //タグの設定
 
-	CTransform::Update(); //行列を呼ぶ
-}
-
-//一度だけ実行
-void CGoal::Init(){
 	mColliderMesh.Set(this, &mMatrix, mpModel);//モデルから三角コライダを生成
+
+	CTransform::Update(); //行列を呼ぶ
 }
 
 /*void CGoal::Collision(CCollider*m, CCollider*o){
@@ -52,9 +49,9 @@ void CGoal::Init(){
 {
 	//コライダの優先度変更
 	mColliderMesh.
-	//衝突処理を実行
-	CCollisionManager::Get()->Collision(&mColliderMesh, COLLISIONRANGE);
-*/
+		//衝突処理を実行
+		CCollisionManager::Get()->Collision(&mColliderMesh, COLLISIONRANGE);
+}*/
 
 void CGoal::Render(){
 	//親の描画処理を呼ぶ

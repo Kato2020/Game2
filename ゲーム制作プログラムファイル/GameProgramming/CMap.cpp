@@ -19,15 +19,12 @@ CMap::CMap(CModel*model, CVector position, CVector rotation, CVector scale){
 
 	mTag = EMAP; //タグの設定
 
+	mColliderMesh2.Set(this, &mMatrix, mpModel);//モデルから三角コライダを生成
+
 	CTransform::Update(); //行列を呼ぶ
 }
 
-//一度だけ実行
-void CMap::Init(){
-	mColliderMesh2.Set(this, &mMatrix, mpModel);//モデルから三角コライダを生成
-}
-
-void CMap::Collision(CCollider*m, CCollider*o){
+/*void CMap::Collision(CCollider*m, CCollider*o){
 	//自分が三角コライダの時
 	if (m->mType == CCollider::ETRIANGLE){
 		switch (o->mType)
@@ -44,7 +41,7 @@ void CMap::Collision(CCollider*m, CCollider*o){
 			break;
 		}
 	}
-}
+}*/
 
 void CMap::Render(){
 	//親の描画処理

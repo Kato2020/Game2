@@ -4,11 +4,12 @@
 
 
 void CObstacleBig::Init(){
-	//四角形モデルの読み込み
-	mModelcube.Load("cube.obj", "cube.mtl");
+	
 }
 
 CObstacleBig::CObstacleBig(CVector position, CVector rotation, CVector scale){
+	//四角形モデルの読み込み
+	mModelcube.Load("cube.obj", "cube.mtl");
 	//モデル、位置、回転、拡縮を設定する
 	mpModel = &mModelcube;        //モデルの設定
 	mPosition = position;   //位置の設定

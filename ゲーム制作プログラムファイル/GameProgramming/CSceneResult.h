@@ -1,10 +1,10 @@
-#ifndef CSCENETITLE_H
-#define CSCENETITLE_H
+#ifndef CSCENERESULT_H
+#define CSCENERESULT_H
 
 #include "CScene.h"
 #include "CText.h"
 
-class CSceneTitle :public CScene{
+class CSceneResult :public CScene{
 public:
 	//初期化処理のオーバーライド
 	void Init();
@@ -16,4 +16,4 @@ public:
 	CText mText;
 };
 
-#endif
+#endif 

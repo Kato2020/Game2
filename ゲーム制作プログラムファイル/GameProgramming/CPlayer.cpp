@@ -10,12 +10,14 @@
 #define GRAVITY 0.15  //重力
 #define JUMPPOWER 0.5  //ジャンプ力
 
+int mClearTime = 0; //リザルトに表示するクリアタイムを渡すための変数
+
 CPlayer::CPlayer()
 :mLine(this, &mMatrix, CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 5.0f))
 , mLine2(this, &mMatrix, CVector(0.0f, 5.0f, 0.0f), CVector(0.0f, -3.0f, 0.0f))
 , mLine3(this, &mMatrix, CVector(5.0f, 0.0f, 0.0f), CVector(-5.0f, 0.0f, 0.0f))
 ,mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.5f)
-, mJpspeed(0), mJump(false)
+, mJpspeed(0), mJump(false), mTime(0), mCount(0)
 {
 	//テクスチャファイルの読み込み(1行64列)
 	mText.LoadTexture("FontWhite.tga", 1, 64);
@@ -64,6 +66,17 @@ void CPlayer::Update(){
 	if (mJump==false)
 	mPosition.mY -= GRAVITY;
 
+	//時間を計測
+	if (mCount < 60){
+		mCount++;
+	}
+	else{
+		mTime++;
+		mCount = 0;
+	}
+	//クリアタイムを渡す
+	mClearTime = mTime;
+
 	//CCharacterの更新
 	CTransform::Update();
 
@@ -85,6 +98,38 @@ void CPlayer::Collision(CCollider*m, CCollider*o){
 			//着地処理
 			mJump = false;
 			mJpspeed = 0;
+		}
+		break;
+	case CCollider::ESPHERE://球コライダ
+		//相手のコライダが三角コライダの時
+		if (o->mType == CCollider::ETRIANGLE){
+			CVector adjust;//調整用ベクトル
+			//相手がゴールのコライダの場合
+			if (o->mTag == EGOAL){
+				//衝突しているか判定
+				if(CCollider::CollisionTriangleSphere(o, m, &adjust)){
+					//衝突しない位置まで戻す
+					mPosition = mPosition - adjust*-1;
+					//プレイヤーを削除
+					delete this;
+				}
+			}
+			//相手が壁のコライダの場合
+			if (o->mTag == EMAP){
+				//衝突しているか判定
+				if (CCollider::CollisionTriangleSphere(o, m, &adjust)){
+					//衝突しない位置まで戻す
+					mPosition = mPosition - adjust*-1;
+				}
+			}
+			//相手が床のコライダの場合
+			if (o->mTag == EFLOOR){
+				//衝突しているか判定
+				if (CCollider::CollisionTriangleSphere(o, m, &adjust)){
+					//衝突しない位置まで戻す
+					mPosition = mPosition - adjust*-1;
+				}
+			}
 		}
 		break;
 	}
@@ -111,33 +156,15 @@ void CPlayer::Render()
 	//親の描画処理
 	CCharacter::Render();
 
-	/*//2Dの描画開始
+	//2Dの描画開始
 	CUtil::Start2D(-400, 400, -300, 300);
 	//描画側の設定(緑色の半透明)
-	glColor4f(0.0f, 1.0f, 0.0f, 0.4f);
+	glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
 	//文字列編集エリアの作成
 	char buf[64];
-
-	//Y座標の表示
-	//文字列の設定
-
-
-	sprintf_s(buf, "PY:%7.2f", mPosition.mY);
+	sprintf_s(buf, "Time:%ds", mTime);
 	//文字列の描画
-	mText.DrawString(buf, 100, 30, 8, 16);
-
-	//X軸回転値の表示
-	//文字列の設定
-	sprintf_s(buf, "RX:%7.2f", mRotation.mX);
-	//文字列の描画
-	mText.DrawString(buf, 100, 0, 8, 16);
-
-	//Y軸回転値の表示
-	//文字列の設定
-	sprintf_s(buf, "RY:%7.2f", mRotation.mY);
-	//文字列の描画
-	mText.DrawString(buf, 100, -100, 8, 16);
-
+	mText.DrawString(buf, 350, 250, 8, 16);
 	//2Dの描画終了
-	CUtil::End2D();*/
+	CUtil::End2D();
 }

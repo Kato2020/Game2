@@ -33,15 +33,15 @@ void CObstacleManager::Generate(float range,float width,float spacing){
 		{
 		case 0:
 			//普通サイズの障害物を生成する
-			new CObstacle(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+			new CObstacle(CVector(x, 0.0f, spacing * i*-1.0f - 10.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
 			break;
 		case 1:
 			//大きいサイズの障害物を生成
-			new CObstacleBig(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+			new CObstacleBig(CVector(x, 0.0f, spacing * i*-1.0f - 10.0f), CVector(), CVector(2.0f, 2.0f, 2.0f));
 			break;
 		case 2:
 			//左右に動く障害物を生成
-			new CObstacleMoving(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+			new CObstacleMoving(CVector(x, 0.0f, spacing * i*-1.0f - 10.0f), CVector(), CVector(0.8f, 1.8f, 0.8f));
 			break;
 		default:
 			break;
@@ -65,15 +65,15 @@ void CObstacleManager::GenerateRandom(float renge, float width, float spacing){
 		switch (mObstacleType){
 			case 0:
 				//普通サイズの障害物を生成する
-				new CObstacle(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+				new CObstacle(CVector(x, 0.0f, spacing * i*-1.0f - 10.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
 				break;
 			case 1:
 				//大きいサイズの障害物を生成
-				new CObstacleBig(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+				new CObstacleBig(CVector(x, 0.0f, spacing * i*-1.0f - 10.0f), CVector(), CVector(2.0f, 1.0f, 2.0f));
 				break;
 			case 2:
 				//左右に動く障害物を生成
-				new CObstacleMoving(CVector(x, 0.0f, spacing * i), CVector(), CVector(1.0f, 1.0f, 1.0f));
+				new CObstacleMoving(CVector(x, 0.0f, spacing * i*-1.0f - 10.0f), CVector(), CVector(0.8f, 1.8f, 0.8f));
 				break;
 		default:
 			break;

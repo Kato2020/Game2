@@ -9,8 +9,6 @@ public:
 	//コンストラクタ
 	//CGoal(モデル,位置,回転,拡縮)
 	CGoal(CModel*model, CVector position, CVector rotation, CVector scale);
-	//一度だけ実行
-	void Init();
 	//衝突判定
 	//void Collision(CCollider*m, CCollider*o);
 	//衝突処理
