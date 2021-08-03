@@ -18,18 +18,15 @@
 #include "CObstacle.h"
 
 //左右の壁のモデル
-CModel mModelcubeL;
-CModel mModelcubeR;
+extern CModel mModelcubeL;
+extern CModel mModelcubeR;
 //ゴールのモデル
-CModel mModelGoal;
+extern CModel mModelGoal;
 //床のモデル
-CModel mModelFloor;
-//三角コライダの作成
-//CColliderTriangle mColliderTriangle;
-//CColliderTriangle mColliderTriangle2;
+extern CModel mModelFloor;
 
 //障害物を配置するクラスのインスタンス
-CObstacleManager mObstacle;
+CObstacleManager mObstaclet;
 
 void CSceneTutorial::Init() {
 	//シーンの設定
@@ -44,21 +41,11 @@ void CSceneTutorial::Init() {
 	mPlayer.mPosition = CVector(0.0f, 0.0f, -3.0f)*mBackGroundMatrix;
 	mPlayer.mRotation = CVector(0.0f, 180.0f, 0.0f);
 
-	//三角コライダを床として配置
-	/*mColliderTriangle.Set(NULL, NULL
-	, CVector(-5.0f, 0.0f, -100.0f)
-	, CVector(-5.0f, 0.0f, 0.0f)
-	, CVector(5.0f, 0.0f, 0.0f));
-	mColliderTriangle2.Set(NULL, NULL
-	, CVector(5.0f, 0.0f, -100.0f)
-	, CVector(-5.0f, 0.0f, -100.0f)
-	, CVector(5.0f, 0.0f, 0.0f));*/
-
 	//床のモデルを読み込む
 	mModelFloor.Load("cube.obj", "cube.mtl");
 	//床を配置
-	new CFloor(&mModelFloor, CVector(0.0f, -5.0f, -50.0f)
-		*mBackGroundMatrix, CVector(), CVector(1.0f, 5.0f, 50.0f));
+	new CFloor(&mModelFloor, CVector(0.0f, -2.0f, -50.0f)
+		*mBackGroundMatrix, CVector(), CVector(4.0f, 1.0f, 50.0f));
 
 	//壁のモデルを読み込む
 	mModelcubeL.Load("cube.obj", "cube.mtl");
@@ -78,10 +65,7 @@ void CSceneTutorial::Init() {
 
 	//障害物を配置
 	//Generate(コースの長さ,コースの幅,障害物の間隔)
-	mObstacle.Generate(100.0f, 10.0f, 10.0f);
-	//ランダムに障害物を配置
-	//Generate(コースの長さ,コースの幅,障害物の間隔)
-	//mObstacle.GenerateRandom(100.0f, 10.0f, 3.0f);
+	mObstaclet.Generate(100.0f, 10.0f, 10.0f);
 
 }
 

@@ -10,5 +10,5 @@ public:
 	CFloor(CModel*model, CVector position, CVector rotation, CVector scale);
 	//•`‰æˆ—
 	void Render();
-}
+};
 #endif

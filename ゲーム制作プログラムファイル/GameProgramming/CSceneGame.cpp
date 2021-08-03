@@ -24,9 +24,6 @@ CModel mModelcubeR;
 CModel mModelGoal;
 //床のモデル
 CModel mModelFloor;
-//三角コライダの作成
-//CColliderTriangle mColliderTriangle;
-//CColliderTriangle mColliderTriangle2;
 
 //障害物を配置するクラスのインスタンス
 CObstacleManager mObstacle;
@@ -44,21 +41,11 @@ void CSceneGame::Init() {
 	mPlayer.mPosition = CVector(0.0f, 0.0f, -3.0f)*mBackGroundMatrix;
 	mPlayer.mRotation = CVector(0.0f, 180.0f, 0.0f);
 
-	//三角コライダを床として配置
-	/*mColliderTriangle.Set(NULL, NULL
-		, CVector(-5.0f, 0.0f, -100.0f)
-		, CVector(-5.0f, 0.0f, 0.0f)
-		, CVector(5.0f, 0.0f, 0.0f));
-	mColliderTriangle2.Set(NULL, NULL
-		, CVector(5.0f, 0.0f, -100.0f)
-		, CVector(-5.0f, 0.0f, -100.0f)
-		, CVector(5.0f, 0.0f, 0.0f));*/
-
 	//床のモデルを読み込む
 	mModelFloor.Load("cube.obj", "cube.mtl");
 	//床を配置
-	new CFloor(&mModelFloor,CVector(0.0f, -5.0f, -50.0f)
-		*mBackGroundMatrix, CVector(), CVector(1.0f, 5.0f, 50.0f));
+	new CFloor(&mModelFloor,CVector(0.0f, -2.0f, -50.0f)
+		*mBackGroundMatrix, CVector(), CVector(4.0f, 1.0f, 50.0f));
 
 	//壁のモデルを読み込む
 	mModelcubeL.Load("cube.obj", "cube.mtl");
@@ -73,12 +60,9 @@ void CSceneGame::Init() {
 	//ゴールのモデルを読み込む
 	mModelGoal.Load("cube.obj", "cube.mtl");
 	//ゴール地点にゴールのインスタンスを作成
-	new CGoal(&mModelGoal, CVector(0.0f, 0.0f, -100.0f), CVector(),
+	new CGoal(&mModelGoal, CVector(0.0f, 0.0f, -100.0f)*mBackGroundMatrix, CVector(),
 		CVector(4.0f, 5.0f, 1.0f));
 
-	//障害物を配置
-	//Generate(コースの長さ,コースの幅,障害物の間隔)
-	//mObstacle.Generate(100.0f, 10.0f, 10.0f);
 	//ランダムに障害物を配置
 	//Generate(コースの長さ,コースの幅,障害物の間隔)
 	mObstacle.GenerateRandom(100.0f, 10.0f, 3.0f);
@@ -105,7 +89,7 @@ void CSceneGame::Update() {
 	//頂点3の座標を設定する
 	v2.mX = 0.0f; v2.mY = 0.0f; v2.mZ = -0.5f;
 	//カメラの移動の入力処理
-	if (CKey::Push('J'))
+	/*if (CKey::Push('J'))
 	{
 		mEye.mX -= 0.1f;
 	}
@@ -128,9 +112,11 @@ void CSceneGame::Update() {
 	if (CKey::Push('O'))
 	{
 		mEye.mY += 0.1f;
-	}
+	}*/
 
-	//mPlayer.Update();
+	if (mPlayer.CPlayer::mEnabled==false){
+		mScene = ERESULT;
+	}
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、中心点、上方向
@@ -147,8 +133,6 @@ void CSceneGame::Update() {
 	//カメラクラスの設定
 	Camera.Set(e, c, u);
 	Camera.Render();
-
-	//mPlayer.Render();
 
 	//タスクリストの削除
 	CTaskManager::Get()->Delete();

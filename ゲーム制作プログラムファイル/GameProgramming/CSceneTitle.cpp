@@ -21,10 +21,11 @@ void CSceneTitle::Update(){
 	//2Dの描画開始
 	CUtil::Start2D(-400, 400, -300, 300);
 	//描画側の設定(緑色の半透明)
-	glColor4f(0.0f, 1.0f, 0.0f, 0.4f);
+	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 	//文字の描画
 	mText.DrawString("TITLE", -200, 0, 50, 50);
-	mText.DrawString("Push ENTER Key", -200, -100, 16, 16);
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	mText.DrawString("PUSH ENTER KEY", -200, -100, 16, 16);
 	//2Dの描画終了
 	CUtil::End2D();
 }

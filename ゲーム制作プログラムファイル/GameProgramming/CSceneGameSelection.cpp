@@ -25,11 +25,11 @@ void CSceneGameSelection::Update(){
 	if (CKey::Once('D')){
 		mNextGame = 1;
 	}
-	if (CKey::Once(VK_RETURN) && mNextGame == 0){
+	if (CKey::Push(VK_RETURN) && mNextGame == 0){
 		//次のシーンはゲーム
 		mScene = EGAME;
 	}
-	if (CKey::Once(VK_RETURN) && mNextGame == 1){
+	if (CKey::Push(VK_RETURN) && mNextGame == 1){
 		//次のシーンはチュートリアル
 		mScene = ETUTORIAL;
 	}
@@ -39,7 +39,7 @@ void CSceneGameSelection::Update(){
 	//選択したゲームボタンの背景色を変更
 	if (mNextGame == 0){
 		//描画色の設定(青色の半透明)
-		glColor4f(0.0f, 0.0f, 1.0f, 0.4f);
+		glColor4f(0.0f, 1.0f, 0.0f, 0.4f);
 		glBegin(GL_TRIANGLES);
 		glVertex2f(-300.0f, 200.0f);
 		glVertex2f(-300.0f, -100.0f);
@@ -65,12 +65,12 @@ void CSceneGameSelection::Update(){
 		glVertex2f(300.0f, 200.0f);
 		glEnd();
 	}
-	//描画側の設定(緑色)
-	glColor4f(0.0f, 1.0f, 0.0f, 0.7f);
+	//描画側の設定(黒色)
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 	//文字の描画
-	mText.DrawString("Push ENTER Key", -200, -100, 16, 16);
-	mText.DrawString("Tutorial", -200, -100, 16, 16);
-	mText.DrawString("Game", -200, -100, 16, 16);
+	mText.DrawString("TUTORIAL", 40, 40, 16, 16);
+	mText.DrawString("GAME", -200, 40, 16, 16);
+	mText.DrawString("PUSH ENTER KEY", -200, -150, 16, 16);
 	//2Dの描画終了
 	CUtil::End2D();
 }

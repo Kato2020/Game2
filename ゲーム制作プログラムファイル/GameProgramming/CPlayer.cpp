@@ -8,7 +8,7 @@
 #include "CUtil.h"
 
 #define GRAVITY 0.15  //重力
-#define JUMPPOWER 0.5  //ジャンプ力
+#define JUMPPOWER 5.0  //ジャンプ力
 
 int mClearTime = 0; //リザルトに表示するクリアタイムを渡すための変数
 
@@ -22,6 +22,7 @@ CPlayer::CPlayer()
 	//テクスチャファイルの読み込み(1行64列)
 	mText.LoadTexture("FontWhite.tga", 1, 64);
 	mTag = EPLAYER; //タグの設定
+	CPlayer::mEnabled = true;
 }
 
 //更新処理
@@ -52,19 +53,21 @@ void CPlayer::Update(){
 		mRotation.mX += 1;
 	}
 	//キー入力でジャンプ
-	if (CKey::Push(' ') && mJump==false){
+	if (CKey::Once(' ') && mJump==false){
 		mJpspeed += JUMPPOWER;
 		mJump = true;
 	}
 	//ジャンプの力を加算
 	if (mJump == true){
-		mPosition.mY += mJpspeed;
+		mPosition.mZ -= 0.3f;
 		mJpspeed -= GRAVITY;
+		mPosition.mY += mJpspeed;
 	}
 
 	//重力を設定
-	if (mJump==false)
+	if (mJump==false){
 	mPosition.mY -= GRAVITY;
+	}
 
 	//時間を計測
 	if (mCount < 60){
@@ -110,8 +113,7 @@ void CPlayer::Collision(CCollider*m, CCollider*o){
 				if(CCollider::CollisionTriangleSphere(o, m, &adjust)){
 					//衝突しない位置まで戻す
 					mPosition = mPosition - adjust*-1;
-					//プレイヤーを削除
-					delete this;
+					CPlayer::mEnabled=false;
 				}
 			}
 			//相手が壁のコライダの場合
@@ -159,12 +161,12 @@ void CPlayer::Render()
 	//2Dの描画開始
 	CUtil::Start2D(-400, 400, -300, 300);
 	//描画側の設定(緑色の半透明)
-	glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
+	glColor4f(0.0f, 1.0f, 0.0f, 0.7f);
 	//文字列編集エリアの作成
 	char buf[64];
-	sprintf_s(buf, "Time:%ds", mTime);
+	sprintf_s(buf, "TIME:%dS", mTime);
 	//文字列の描画
-	mText.DrawString(buf, 350, 250, 8, 16);
+	mText.DrawString(buf, 280, 270, 8, 16);
 	//2Dの描画終了
 	CUtil::End2D();
 }

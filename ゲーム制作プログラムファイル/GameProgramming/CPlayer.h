@@ -33,6 +33,8 @@ public:
 	void TaskCollision();
 	//文字列の描画を行うCTextクラスの変数mText
 	CText mText;
+	//ゴールしてゲームが終了したか判定
+	bool mEnabled;
 	//描画処理
 	void Render();
 };

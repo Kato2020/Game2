@@ -24,16 +24,19 @@ void CSceneResult::Update(){
 
 	//2Dの描画開始
 	CUtil::Start2D(-400, 400, -300, 300);
-	//描画側の設定(緑色の半透明)
-	glColor4f(0.0f, 1.0f, 0.0f, 0.4f);
+	//描画色の設定
+	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 	//文字の描画
 	mText.DrawString("RESULT", -200, 0, 50, 50);
-	mText.DrawString("Push ENTER Key", -200, -100, 16, 16);
 	//文字列編集エリアの作成
 	char buf[64];
-	sprintf_s(buf, "ClearTime:%ds", mClearTime);
+	sprintf_s(buf, "CLEAR TIME:%dS", mClearTime);
 	//文字列の描画
 	mText.DrawString(buf, 350, 250, 8, 16);
+	//描画色の設定
+	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	//文字の描画
+	mText.DrawString("PUSH ENTER KEY", -200, -150, 16, 16);
 	//2Dの描画終了
 	CUtil::End2D();
 }
