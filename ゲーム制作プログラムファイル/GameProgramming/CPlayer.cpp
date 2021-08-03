@@ -13,11 +13,11 @@
 int mClearTime = 0; //リザルトに表示するクリアタイムを渡すための変数
 
 CPlayer::CPlayer()
-:mLine(this, &mMatrix, CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 5.0f))
-, mLine2(this, &mMatrix, CVector(0.0f, 5.0f, 0.0f), CVector(0.0f, -3.0f, 0.0f))
-, mLine3(this, &mMatrix, CVector(5.0f, 0.0f, 0.0f), CVector(-5.0f, 0.0f, 0.0f))
-,mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.5f)
-, mJpspeed(0), mJump(false), mTime(0), mCount(0)
+:mLine(this, &mMatrix, CVector(0.0f, 0.0f, -2.0f), CVector(0.0f, 0.0f, 2.0f))
+, mLine2(this, &mMatrix, CVector(0.0f, 2.0f, 0.0f), CVector(0.0f, -2.0f, 0.0f))
+, mLine3(this, &mMatrix, CVector(2.0f, 0.0f, 0.0f), CVector(-2.0f, 0.0f, 0.0f))
+,mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.4f)
+, mJpspeed(0), mJump(false), mTime(0), mCount(0), mSlowing(0.0f)
 {
 	//テクスチャファイルの読み込み(1行64列)
 	mText.LoadTexture("FontWhite.tga", 1, 64);
@@ -54,8 +54,9 @@ void CPlayer::Update(){
 	}
 	//キー入力でジャンプ
 	if (CKey::Once(' ') && mJump==false){
-		mJpspeed += JUMPPOWER;
+		//mJpspeed += JUMPPOWER;
 		mJump = true;
+		mSlowing = 100.0f;
 	}
 	//ジャンプの力を加算
 	if (mJump == true){
@@ -63,12 +64,17 @@ void CPlayer::Update(){
 		mJpspeed -= GRAVITY;
 		mPosition.mY += mJpspeed;
 	}
-
 	//重力を設定
 	if (mJump==false){
 	mPosition.mY -= GRAVITY;
 	}
-
+	//CCharacterの更新
+	CTransform::Update();
+	//障害物とぶつかっていたら減速して徐々に加速する
+	if (mSlowing > 0){
+		mPosition = CVector(0.0f, 0.0f, -mSlowing/100)*mMatrix;
+		mSlowing--;
+	}
 	//時間を計測
 	if (mCount < 60){
 		mCount++;
@@ -107,12 +113,18 @@ void CPlayer::Collision(CCollider*m, CCollider*o){
 		//相手のコライダが三角コライダの時
 		if (o->mType == CCollider::ETRIANGLE){
 			CVector adjust;//調整用ベクトル
+			//相手が障害物のコライダの場合
+			if (o->mTag==CCharacter::EOBSTACLE){
+				//衝突しているか判定
+				if (CCollider::CollisionTriangleSphere(o, m, &adjust)){
+					mSlowing = 100.0f;
+				}
+			}
 			//相手がゴールのコライダの場合
-			if (o->mTag == EGOAL){
+			if (o->mTag == CCharacter::EGOAL){
 				//衝突しているか判定
 				if(CCollider::CollisionTriangleSphere(o, m, &adjust)){
-					//衝突しない位置まで戻す
-					mPosition = mPosition - adjust*-1;
+			        //プレイヤーがゴールしたことを知らせるフラグ
 					CPlayer::mEnabled=false;
 				}
 			}
@@ -120,16 +132,14 @@ void CPlayer::Collision(CCollider*m, CCollider*o){
 			if (o->mTag == EMAP){
 				//衝突しているか判定
 				if (CCollider::CollisionTriangleSphere(o, m, &adjust)){
-					//衝突しない位置まで戻す
-					mPosition = mPosition - adjust*-1;
+
 				}
 			}
 			//相手が床のコライダの場合
 			if (o->mTag == EFLOOR){
 				//衝突しているか判定
 				if (CCollider::CollisionTriangleSphere(o, m, &adjust)){
-					//衝突しない位置まで戻す
-					mPosition = mPosition - adjust*-1;
+
 				}
 			}
 		}

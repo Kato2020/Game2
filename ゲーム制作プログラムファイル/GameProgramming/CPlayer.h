@@ -18,6 +18,8 @@ private:
 	int mTime;
 	//一秒をカウントする
 	int mCount;
+	//減速
+	float mSlowing;
 public:
 	//更新処理
 	void Update();

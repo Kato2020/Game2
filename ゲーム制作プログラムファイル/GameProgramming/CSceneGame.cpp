@@ -60,7 +60,7 @@ void CSceneGame::Init() {
 	//ゴールのモデルを読み込む
 	mModelGoal.Load("cube.obj", "cube.mtl");
 	//ゴール地点にゴールのインスタンスを作成
-	new CGoal(&mModelGoal, CVector(0.0f, 0.0f, -100.0f)*mBackGroundMatrix, CVector(),
+	new CGoal(&mModelGoal, CVector(0.0f, 0.0f, -30.0f)*mBackGroundMatrix, CVector(),
 		CVector(4.0f, 5.0f, 1.0f));
 
 	//ランダムに障害物を配置
@@ -114,7 +114,8 @@ void CSceneGame::Update() {
 		mEye.mY += 0.1f;
 	}*/
 
-	if (mPlayer.CPlayer::mEnabled==false){
+	//if (mPlayer.CPlayer::mEnabled==false){
+	if (CKey::Once('K')){
 		mScene = ERESULT;
 	}
 
